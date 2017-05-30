@@ -1,0 +1,27 @@
+- repo: git://github.com/developerinlondon/salt-lint-ruby.git
+  sha: 5e61f371ceb00cb54870ddfe5eb72214758acc47
+  hooks:
+  - id: salt-lint
+    name: salt-lint
+    entry: salt-lint --no-check-line-length -f
+    language: system
+    files: \.sls$
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  sha: c847dd3f2e7260830b6fc66a6a3ed7a837e3bdb1
+  hooks:
+  - id: check-yaml
+  - id: end-of-file-fixer
+    files: \.(asciidoc|adoc|conf|coffee|cpp|css|c|ejs|erb|groovy|h|haml|hh|hpp|hxx|html|in|j2|jade|json|js|less|markdown|md|ml|mli|pp|py|rb|rs|R|scala|scss|sh|slim|sls|tex|tmpl|ts|txt|yaml|yml)|Vagrantfile|Gemfile|Rakefile$
+  - id: trailing-whitespace
+    files: \.(asciidoc|adoc|conf|coffee|cpp|css|c|ejs|erb|groovy|h|haml|hh|hpp|hxx|html|in|j2|jade|json|js|less|markdown|md|ml|mli|pp|py|rb|rs|R|scala|scss|sh|slim|sls|tex|tmpl|ts|txt|yaml|yml)|Vagrantfile|Gemfile|Rakefile$
+  - id: check-added-large-files
+  - id: check-merge-conflict
+  - id: check-symlinks
+#  - id: detect-private-key
+- repo: git://github.com/detailyang/pre-commit-shell
+  sha: a38692fd3e36bab39d523f80c90222b92f2b05ef
+  hooks:
+  - id: shell-lint
+    args:
+    - --shell=bash
+    - -e SC2164
