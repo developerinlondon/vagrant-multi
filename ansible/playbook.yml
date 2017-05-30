@@ -2,8 +2,8 @@
 - hosts: jenkins_servers
   gather_facts: yes
 
-  vars_files:
-    - main.yml
+  # vars_files:
+  #   - main.yml
 
   roles:
     - geerlingguy.firewall
