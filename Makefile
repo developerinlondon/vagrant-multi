@@ -33,3 +33,13 @@ help:           ## Show this help.
 
 init: ## Prepare the environment for vagrant
 	./scripts/setup.sh
+
+repo_install: ## install repo
+	curl -s https://gerrit.googlesource.com/git-repo/+/stable/repo?format=TEXT | base64 -D > /usr/local/bin/repo
+	chmod +x /usr/local/bin/repo
+
+repo_init: ## initialize repo
+	repo init \
+    --repo-url git@github.com:developerinlondon/android_repo.git \
+    -u git@github.com:developerinlondon/vagrant-multi-maifest.git \
+	-b master
