@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+    - name: install galaxy roles
+      command: ansible_galaxy install -r requirements.yml --roles-path galaxy-roles
+    - name: ensure roles folder is gitignored
+      lineinfile:
+        dest:   .gitignore
+        regexp: '^galaxy_roles$'
+        line:   'galaxy_roles'
+        state:  present

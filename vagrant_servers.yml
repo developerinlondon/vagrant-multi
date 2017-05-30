@@ -1,0 +1,45 @@
+---
+default:
+  provider: virtualbox
+servers:
+  linode:
+    web.sds:
+      provider: linode
+      distribution: 'Ubuntu 16.04 LTS'
+  #    imageid: 1667220
+      datacenter: frankfurt
+      plan: 'Linode 1024'
+      private_key_path: ~/.ssh/id_rsa
+  virtualbox:
+    manager:
+      provider: virtualbox
+      memory: 512
+      cpus: 2
+      box: kaorimatz/ubuntu-16.04-amd64
+      hostname: manager
+      ip: "192.168.33.55"
+      bridge: "en0: Wi-Fi (AirPort)"
+      network_type: public_network
+      vboxmanage:
+        - { name: modifyvm, setting: "--natdnshostresolver1", value: 'on' }
+        - { name: modifyvm, setting: "--ioapic",              value: 'on' }
+      ansible:
+        playbooks:
+          - { name: ansible/playbook.yml, inventory: ansible/inventory/virtualbox/manager.ini }
+  scaleway:
+    manager:
+      provider: scaleway
+      image: 3a1b0dd8-92e1-4ba2-aece-eea8e9d07e32
+      region: par1
+      tags:
+        - ansible
+        - image
+      commercial_type: C1
+      private_key_path: ~/.ssh/id_rsa
+      # synced_folders:
+      # - src: .
+      #   dest: /vagrant
+      #   disabled: true
+      scripts:
+        - { name: initialize, src: userdata.sh }
+      #image:

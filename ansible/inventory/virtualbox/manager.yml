@@ -1,0 +1,18 @@
+---
+# virtualbox manager server
+hosts:
+  manager:
+    ansible_host: manager.virtualbox
+
+# children:
+#   virtualbox:
+#     all
+#   management:
+#     hosts:
+#       manager
+#   jenkins_servers:
+#     management
+#   jenkins_slaves:
+#     management
+#   jira_server:
+#     management

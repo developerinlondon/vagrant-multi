@@ -1,9 +1,13 @@
 ---
-- hosts: jenkins_servers
-  gather_facts: yes
+- hosts: all
+  become: yes
+  gather_facts: no
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-simplejson
 
-  # vars_files:
-  #   - main.yml
+- hosts: all
+  gather_facts: yes
 
   roles:
     - geerlingguy.firewall

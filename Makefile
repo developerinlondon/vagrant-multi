@@ -2,7 +2,7 @@
 # Why use Makefile?
 # because you get help lists & auto-complete on complex commands
 #
-
+SHELL := /bin/bash
 help:           ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
@@ -32,11 +32,10 @@ help:           ## Show this help.
 .PHONY: init
 
 init: ## Prepare the environment for vagrant
-	./scripts/setup.sh
+	source ./scripts/common.sh && setup_repo
 
 repo_install: ## install repo
-	curl -s https://gerrit.googlesource.com/git-repo/+/stable/repo?format=TEXT | base64 -D > /usr/local/bin/repo
-	chmod +x /usr/local/bin/repo
+	source ./scripts/common.sh && setup_repo
 
 repo_init: ## initialize repo
 	repo init \

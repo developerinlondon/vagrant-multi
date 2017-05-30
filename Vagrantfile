@@ -8,12 +8,17 @@ require 'pp'
 
 #require 'colorize'
 
-# install dependant plugins
-%w( vagrant-linode vagrant-hosts vagrant-share vagrant-scaleway ).each do |plugin|
-    exec "vagrant plugin install #{plugin};vagrant #{ARGV.join(" ")}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
-end
+servergroups = YAML.load_file(File.join(File.dirname(__FILE__), 'vagrant_servers.yml'))
 
-servergroups = YAML.load_file(File.join(File.dirname(__FILE__), 'servers.yml'))
+VAGRANT_SERVERS_CONFIG = ENV['VAGRANT_SERVERS_CONFIG'] || File.join(File.dirname(__FILE__), 'vagrant_servers.yml')
+DEFAULT_SERVERS_CONFIG = File.join(File.dirname(__FILE__), '.vagrant_servers.yml')
+serverconfig = YAML.load_file(VAGRANT_SERVERS_CONFIG)
+# override with default variable
+serverconfig = serverconfig.merge(YAML.load_file(DEFAULT_SERVERS_CONFIG)) if File.file?(DEFAULT_SERVERS_CONFIG)
+
+servergroups = serverconfig['servers']
+defaultconfig = serverconfig['default']
+
 host_port = 2222
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   servergroups.each do |servergroup, servers|
@@ -49,6 +54,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             provider.organization    = secrets['organization']
             provider.token           = secrets['token']
             provider.image           = serverconfig['image']
+
+            override.landrush.enabled = true
+            override.landrush.tld = servergroup
+
           end
           server.vm.hostname = "#{servername}.#{servergroup}"
         elsif serverconfig['provider'] == 'virtualbox' then
@@ -56,7 +65,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             override.vm.box          = serverconfig['box']
             override.ssh.insert_key  = false
             override.vm.network serverconfig['network_type'], ip: serverconfig['ip'], bridge: serverconfig['bridge']
-            override.vm.hostname     = serverconfig['hostname']
+            override.vm.hostname     = "#{serverconfig['hostname']}.#{servergroup}"
+            
+            override.landrush.enabled = true
+            override.landrush.tld = servergroup
 
             provider.name            = "#{servername}.#{servergroup}"
             provider.memory = serverconfig['memory']
