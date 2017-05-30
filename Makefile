@@ -43,3 +43,6 @@ repo_init: ## initialize repo
     --repo-url git@github.com:developerinlondon/android_repo.git \
     -u git@github.com:developerinlondon/vagrant-multi-maifest.git \
 	-b master
+
+gpg-recrypt:
+	./scripts/re-crypt.sh

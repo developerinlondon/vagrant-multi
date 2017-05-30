@@ -15,7 +15,7 @@ local:
     box: kaorimatz/ubuntu-16.04-amd64
     hostname: jenkins
     ip: "192.168.33.55"
-    bridge: "en1: Wi-Fi (AirPort)"
+    bridge: "en0: Wi-Fi (AirPort)"
     network_type: public_network
     vboxmanage:
       - { name: modifyvm, setting: "--natdnshostresolver1", value: 'on' }
@@ -37,6 +37,6 @@ scaleway:
     # - src: .
     #   dest: /vagrant
     #   disabled: true
-    # scripts:
-    #   - { name: initialize, src: userdata.sh }
+    scripts:
+      - { name: initialize, src: userdata.sh }
     #image:
