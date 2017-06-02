@@ -19,15 +19,13 @@ serverconfig = serverconfig.merge(YAML.load_file(DEFAULT_SERVERS_CONFIG)) if Fil
 servergroups = serverconfig['servers']
 defaultconfig = serverconfig['default']
 
-host_port = 2222
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   servergroups.each do |servergroup, servers|
     servers.each do |servername, serverconfig|
       secrets = YAML.load_file(File.join(File.dirname(__FILE__),"configs/#{servergroup}/#{servername}/secrets.yml")) if File.exist? "configs/#{servergroup}/#{servername}/secrets.yml"
       vm_name = "#{servername}.#{servergroup}"
       config.vm.define vm_name do |server|
-        host_port = host_port + 1
-        server.vm.network :forwarded_port, guest: 22, host: host_port, id: 'ssh'
+        server.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
         if serverconfig['provider'] == 'linode' then
           server.vm.provider :linode do |provider, override|
             override.ssh.private_key_path = serverconfig['private_key_path']
