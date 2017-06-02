@@ -103,6 +103,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           end
         end
 
+        # open iptables all ports
+        server.vm.provision 'open_iptables', type: :shell, 
+
         unless serverconfig['ansible'].nil?
           unless serverconfig['ansible']['playbooks'].nil?
             serverconfig['ansible']['playbooks'].each do |playbook|

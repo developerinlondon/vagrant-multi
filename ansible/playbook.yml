@@ -9,17 +9,6 @@
 - hosts: all
   gather_facts: yes
   roles:
-    - geerlingguy.firewall
-    - geerlingguy.ntp
-    - geerlingguy.git
-    - geerlingguy.java
-    - geerlingguy.jenkins
-  tags:
-    - common
-
-- hosts: all
-  gather_facts: yes
-  roles:
      - role: zerotao.packages
        packages_add:
          - tmux
@@ -29,6 +18,17 @@
          - build-essential
   tags:
     - packages
+
+- hosts: all
+  gather_facts: yes
+  roles:
+    - role: geerlingguy.firewall
+      tags: firewall
+      when: install_firewall
+    - role: geerlingguy.ntp
+    - role: geerlingguy.git
+    - role: geerlingguy.java
+  tags:
     - common
 
 - hosts: jenkins_servers
