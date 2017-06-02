@@ -8,10 +8,26 @@
 
 - hosts: all
   gather_facts: yes
-
   roles:
     - geerlingguy.firewall
     - geerlingguy.ntp
     - geerlingguy.git
     - geerlingguy.java
     - geerlingguy.jenkins
+  tags:
+    - common
+
+- hosts: jenkins_servers
+  gather_facts: yes
+  roles:
+    - geerlingguy.jenkins
+  tags:
+    - jenkins
+
+# - hosts: jira_servers
+#   gather_facts: yes
+
+#   roles:
+#     - geerlingguy.jenkins
+#   tags:
+#     - jira
