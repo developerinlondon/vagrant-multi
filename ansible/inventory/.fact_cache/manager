@@ -22,16 +22,16 @@
     "ansible_date_time": {
         "date": "2017-06-02", 
         "day": "02", 
-        "epoch": "1496401925", 
+        "epoch": "1496403407", 
         "hour": "11", 
-        "iso8601": "2017-06-02T11:12:05Z", 
-        "iso8601_basic": "20170602T111205595930", 
-        "iso8601_basic_short": "20170602T111205", 
-        "iso8601_micro": "2017-06-02T11:12:05.596049Z", 
-        "minute": "12", 
+        "iso8601": "2017-06-02T11:36:47Z", 
+        "iso8601_basic": "20170602T113647348564", 
+        "iso8601_basic_short": "20170602T113647", 
+        "iso8601_micro": "2017-06-02T11:36:47.348646Z", 
+        "minute": "36", 
         "month": "06", 
-        "second": "05", 
-        "time": "11:12:05", 
+        "second": "47", 
+        "time": "11:36:47", 
         "tz": "UTC", 
         "tz_offset": "+0000", 
         "weekday": "Friday", 
@@ -114,7 +114,7 @@
         "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin", 
         "PWD": "/home/vagrant", 
         "SHELL": "/bin/bash", 
-        "SUDO_COMMAND": "/bin/sh -c echo BECOME-SUCCESS-pkdfgnkdiznwqbjwamhvuidtsajngxfh; /usr/bin/python /home/vagrant/.ansible/tmp/ansible-tmp-1496401924.83-206480368910151/setup.py; rm -rf \"/home/vagrant/.ansible/tmp/ansible-tmp-1496401924.83-206480368910151/\" > /dev/null 2>&1", 
+        "SUDO_COMMAND": "/bin/sh -c echo BECOME-SUCCESS-zpimyffuojdbzkdooacseyplgpovgjax; /usr/bin/python /home/vagrant/.ansible/tmp/ansible-tmp-1496403406.58-76921656061093/setup.py; rm -rf \"/home/vagrant/.ansible/tmp/ansible-tmp-1496403406.58-76921656061093/\" > /dev/null 2>&1", 
         "SUDO_GID": "1000", 
         "SUDO_UID": "1000", 
         "SUDO_USER": "vagrant", 
@@ -243,22 +243,22 @@
     }, 
     "ansible_machine": "x86_64", 
     "ansible_machine_id": "a7e9ffb57373826f8137318257cc5508", 
-    "ansible_memfree_mb": 311, 
+    "ansible_memfree_mb": 12, 
     "ansible_memory_mb": {
         "nocache": {
-            "free": 425, 
-            "used": 63
+            "free": 211, 
+            "used": 277
         }, 
         "real": {
-            "free": 311, 
+            "free": 12, 
             "total": 488, 
-            "used": 177
+            "used": 476
         }, 
         "swap": {
             "cached": 0, 
-            "free": 1021, 
+            "free": 1013, 
             "total": 1021, 
-            "used": 0
+            "used": 8
         }
     }, 
     "ansible_memtotal_mb": 488, 
@@ -268,7 +268,7 @@
             "fstype": "ext4", 
             "mount": "/", 
             "options": "rw,relatime,errors=remount-ro,data=ordered", 
-            "size_available": 36501135360, 
+            "size_available": 35884695552, 
             "size_total": 39894396928, 
             "uuid": "3df4e48b-5eab-4002-a7c9-4620ad828a94"
         }, 
@@ -325,7 +325,7 @@
     "ansible_ssh_host_key_ecdsa_public": "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJi0mXhP/IAcBxD7EIeezu6+G3NY6cYRl3ScS4Q4amw+Tv+Ij4qWi1hJjDbXoSaw0Jhd8jWo136eEUy8q3znt1I=", 
     "ansible_ssh_host_key_ed25519_public": "AAAAC3NzaC1lZDI1NTE5AAAAICUAXXc1w51Jjv8y12nLboxNscFiSf8cglTGFjjpo/mD", 
     "ansible_ssh_host_key_rsa_public": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCqCkja3A8UWSnxX9i5szGtMVtGMk9vyqROqmdX1a2PBJII9jJZpeE/Xi1fNVhfbrvmB9zVvs0FBRInHYq3KuqTQDcnT/SCY+iY+b40SzWxFnhDXeyMNFwkd3jhXPVQ11k4NBbBeGujZ3iAHfa8ZrJ91LmdORkTxm7rHOyekjCi4aJKb6Fk+XDoaHgI17GywV5DUwN8JTghvSIHIC7fuEi/y8AS+c8royzYyJp4an2I8vEGCJVFFvGMXc1ha/6EwURn1q+ansCCruBnCsl/DXBCh11m/sopH9DgeXAvb8Rqe5X/VhG8nbVirQi5FfZJD/1oS7WVugHcIslPvgvK9daN", 
-    "ansible_swapfree_mb": 1021, 
+    "ansible_swapfree_mb": 1013, 
     "ansible_swaptotal_mb": 1021, 
     "ansible_system": "Linux", 
     "ansible_system_capabilities": [
@@ -370,7 +370,7 @@
     ], 
     "ansible_system_capabilities_enforced": "True", 
     "ansible_system_vendor": "innotek GmbH", 
-    "ansible_uptime_seconds": 489, 
+    "ansible_uptime_seconds": 1971, 
     "ansible_user_dir": "/root", 
     "ansible_user_gecos": "root", 
     "ansible_user_gid": 0, 

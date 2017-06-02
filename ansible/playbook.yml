@@ -17,6 +17,20 @@
   tags:
     - common
 
+- hosts: all
+  gather_facts: yes
+  roles:
+     - role: zerotao.packages
+       packages_add:
+         - tmux
+         - vim
+         - lsof
+       packages_remove:
+         - build-essential
+  tags:
+    - packages
+    - common
+
 - hosts: jenkins_servers
   gather_facts: yes
   roles:

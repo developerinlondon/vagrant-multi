@@ -3,10 +3,10 @@
   become: false
   tasks:
     - name: install galaxy roles
-      command: ansible-galaxy install -r requirements.yml --roles-path galaxy-roles
+      command: ansible-galaxy install -r requirements.yml --roles-path galaxy_roles
     - name: ensure roles folder is gitignored
       lineinfile:
         dest:   .gitignore
-        regexp: '^galaxy-roles$'
-        line:   'galaxy-roles'
+        regexp: '^galaxy_roles$'
+        line:   'galaxy_roles'
         state:  present
