@@ -36,3 +36,6 @@ galaxy: ## run ansible galaxy to prepare
 
 virtualbox: ## run ansible-playbook on vagrant
 	ansible-playbook -vv -i inventory/virtualbox/manager.ini playbook.yml
+
+scaleway: ## run playbook.yml on scaleway manager
+	ansible-playbook -vv -i inventory/scaleway/manager.ini playbook.yml
