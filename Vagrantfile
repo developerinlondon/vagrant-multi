@@ -8,21 +8,35 @@ require 'pp'
 
 #require 'colorize'
 
-servergroups = YAML.load_file(File.join(File.dirname(__FILE__), 'vagrant_servers.yml'))
+CONFIG_FILE = ENV['CONFIG_FILE'] || File.join(File.dirname(__FILE__), 'vagrant_servers.yml')
+CONFIG_OVERRIDE_FILE = File.join(File.dirname(__FILE__), '.vagrant_servers.yml')
+SECRETS_FILE = File.join(File.dirname(__FILE__), 'secrets.yml')
+SECRETS_OVERRIDE_FILE = File.join(File.dirname(__FILE__), '.secrets.yml')
 
-VAGRANT_SERVERS_CONFIG = ENV['VAGRANT_SERVERS_CONFIG'] || File.join(File.dirname(__FILE__), 'vagrant_servers.yml')
-DEFAULT_SERVERS_CONFIG = File.join(File.dirname(__FILE__), '.vagrant_servers.yml')
-serverconfig = YAML.load_file(VAGRANT_SERVERS_CONFIG)
+abort 'config file vagrant_servers.yml missing. Please add that file to continue.' unless File.file? CONFIG_FILE
+abort 'secrets config file secrets.yml missing. Please add that file to continue.' unless File.file?(SECRETS_FILE)
+
+serverconfig = YAML.load_file(CONFIG_FILE)
 # override with default variable
-serverconfig = serverconfig.merge(YAML.load_file(DEFAULT_SERVERS_CONFIG)) if File.file?(DEFAULT_SERVERS_CONFIG)
+serverconfig = serverconfig.merge(YAML.load_file(CONFIG_OVERRIDE_FILE)) if File.file?(CONFIG_OVERRIDE_FILE)
 
 servergroups = serverconfig['servers']
 defaultconfig = serverconfig['default']
 
+secrets = YAML.load_file(SECRETS_FILE) if File.file? SECRETS_FILE
+secrets = secrets.merge(YAML.load_file(SECRETS_OVERRIDE_FILE)) if File.file? SECRETS_OVERRIDE_FILE
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   servergroups.each do |servergroup, servers|
     servers.each do |servername, serverconfig|
-      secrets = YAML.load_file(File.join(File.dirname(__FILE__),"configs/#{servergroup}/#{servername}/secrets.yml")) if File.exist? "configs/#{servergroup}/#{servername}/secrets.yml"
+
+      # merge the default config
+      if serverconfig.nil?
+        serverconfig = defaultconfig
+      else
+        serverconfig = defaultconfig.merge(serverconfig)
+      end
+
       vm_name = "#{servername}.#{servergroup}"
       config.vm.define vm_name do |server|
         server.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
@@ -31,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             override.ssh.private_key_path = serverconfig['private_key_path']
             override.vm.box               = 'linode/ubuntu1404'
 
-            provider.api_key      = secrets['api_key']
+            provider.api_key      = secrets['linode']['api_key']
             provider.datacenter   = serverconfig['datacenter']
             provider.plan         = serverconfig['plan']
             provider.label        = "#{servername.gsub(/\./,'_')}_#{servergroup.gsub(/\./,'_')}"
@@ -49,8 +63,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             provider.region          = serverconfig['region']
             provider.tags            = serverconfig['tags']
             provider.commercial_type = serverconfig['commercial_type']
-            provider.organization    = secrets['organization']
-            provider.token           = secrets['token']
+            provider.organization    = secrets['scaleway']['organization']
+            provider.token           = secrets['scaleway']['token']
             provider.image           = serverconfig['image']
 
             override.landrush.enabled = true
@@ -88,35 +102,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           end
         end
 
-        # copy files
-        unless serverconfig['files'].nil?
-          serverconfig['files'].each do |file|
-            server.vm.provision "file", source: "configs/#{servergroup}/#{servername}/#{file['src']}", destination: "#{file['dest']}" if File.exist? "configs/#{servergroup}/#{servername}/#{file['src']}"
-          end
-        end
-
-        # run the scripts
-        server.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # needed for ubuntu 16.04 LTS
-        unless serverconfig['scripts'].nil?
-          serverconfig['scripts'].each do |script|
-            server.vm.provision script['name'], type: :shell, path: "configs/#{servergroup}/#{servername}/#{script['src']}"
-          end
-        end
-
-        # open iptables all ports
-        server.vm.provision 'open_iptables', type: :shell, 
-
-        unless serverconfig['ansible'].nil?
-          unless serverconfig['ansible']['playbooks'].nil?
-            serverconfig['ansible']['playbooks'].each do |playbook|
-              server.vm.provision "ansible" do |ansible|
-                ansible.playbook = playbook['name']
-                ansible.inventory_path = playbook['inventory']
-                ansible.sudo = true
-              end
-            end
-          end
-        end
       end
     end
   end

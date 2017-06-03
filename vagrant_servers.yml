@@ -23,9 +23,9 @@ servers:
       vboxmanage:
         - { name: modifyvm, setting: "--natdnshostresolver1", value: 'on' }
         - { name: modifyvm, setting: "--ioapic",              value: 'on' }
-      ansible:
-        playbooks:
-          - { name: ansible/playbook.yml, inventory: ansible/inventory/virtualbox/manager.ini }
+      # ansible:
+      #   playbooks:
+      #     - { name: ansible/playbook.yml, inventory: ansible/inventory/virtualbox/manager.ini }
   scaleway:
     manager:
       provider: scaleway

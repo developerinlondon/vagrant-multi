@@ -1,2 +1,3 @@
 .vagrant*
-galaxy_roles
+.secrets.yml
+.vagrant_servers.yml
