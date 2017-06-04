@@ -67,6 +67,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             provider.token           = secrets['scaleway']['token']
             provider.image           = serverconfig['image']
 
+            provider.security_group  = serverconfig['security_group'] unless serverconfig['security_group'].nil?
+
             override.landrush.enabled = true
             override.landrush.tld = servergroup
 

@@ -14,9 +14,6 @@
 - hosts: all
   gather_facts: yes
   roles:
-    - role: geerlingguy.firewall
-      tags: firewall
-      when: install_firewall
     - role: geerlingguy.ntp
     - role: geerlingguy.git
     - role: geerlingguy.java

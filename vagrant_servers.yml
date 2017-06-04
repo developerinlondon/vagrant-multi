@@ -36,6 +36,7 @@ servers:
         - image
       commercial_type: C1
       private_key_path: ~/.ssh/id_rsa
+      security_group: f63dc3cf-3e03-40e4-9091-bc2594d08f7f
       # synced_folders:
       # - src: .
       #   dest: /vagrant
