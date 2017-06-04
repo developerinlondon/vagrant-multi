@@ -1,16 +1,15 @@
 ---
+# install/remove packages
 - hosts: all
   gather_facts: yes
   roles:
-     - role: zerotao.packages
-       packages_add:
-         - tmux
-         - vim
-         - lsof
-       packages_remove:
-         - build-essential
-  tags:
-    - packages
+    - role: zerotao.packages
+      tags:
+        - packages
+    - role: AsavarTzeth.users
+      tags:
+        - users
+# configure users
 
 - hosts: all
   gather_facts: yes

@@ -29,13 +29,13 @@ help:           ## Show this help.
 #
 # Init Related
 #
-.PHONY: galaxy vagrant
+.PHONY: galaxy virtualbox scaleway
 
-galaxy: ## run ansible galaxy to prepare
+galaxy: ## run ansible-playbook -vv install_roles.yml -i 'localhost,' -c local
 	ansible-playbook -vv install_roles.yml -i 'localhost,' -c local
 
-virtualbox: ## run ansible-playbook on vagrant
+virtualbox: ## run ansible-playbook -vv -i inventory/virtualbox/manager.ini playbook.yml
 	ansible-playbook -vv -i inventory/virtualbox/manager.ini playbook.yml
 
-scaleway: ## run playbook.yml on scaleway manager
+scaleway: ## run ansible-playbook -vv -i inventory/scaleway/manager.ini playbook.yml
 	ansible-playbook -vv -i inventory/scaleway/manager.ini playbook.yml

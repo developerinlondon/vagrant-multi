@@ -1,2 +1,9 @@
 ---
 packages_cache_valid_time: 3600000   # cache expire approx 40 days
+
+packages_add: 
+ - tmux
+ - vim
+ - lsof
+packages_remove:
+ - build-essential
