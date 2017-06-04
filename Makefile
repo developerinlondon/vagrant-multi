@@ -45,3 +45,6 @@ repo_init: ## initialize repo
 
 gpg-recrypt:
 	./scripts/re-crypt.sh
+
+push: ## git push origin master; git push bb master; git push gl master;
+	git push origin master; git push bb master; git push gl master;
