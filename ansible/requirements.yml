@@ -6,3 +6,6 @@
 - src: geerlingguy.jenkins
 - src: zerotao.packages
 - src: AsavarTzeth.users
+- src: hswong3i.jira
+- src: geerlingguy.pip
+- src: itiut.pip-packages

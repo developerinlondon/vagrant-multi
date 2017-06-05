@@ -29,10 +29,10 @@ help:           ## Show this help.
 #
 # Init Related
 #
-.PHONY: galaxy virtualbox scaleway
+.PHONY: prepare galaxy virtualbox scaleway
 
-galaxy: ## run ansible-playbook -vv install_roles.yml -i 'localhost,' -c local
-	ansible-playbook -vv install_roles.yml -i 'localhost,' -c local
+prepare:  ## prepares scripts, run ansible-playbook -vv prepare.yml -i 'inventory/localhost' -c local
+	ansible-playbook -vv prepare.yml -i 'inventory/localhost' -c local
 
 virtualbox: ## run ansible-playbook -vv -i inventory/virtualbox/manager.ini playbook.yml
 	ansible-playbook -vv -i inventory/virtualbox/manager.ini playbook.yml

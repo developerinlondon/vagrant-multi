@@ -9,6 +9,8 @@
     - role: AsavarTzeth.users
       tags:
         - users
+    - role: hswong3i.jira
+      tags: ["jira"]
 # configure users
 
 - hosts: all

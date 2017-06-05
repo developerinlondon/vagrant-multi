@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: false
+  pre_tasks:
+    - name: install galaxy roles
+      command: ansible-galaxy install -r requirements.yml --roles-path galaxy_roles
+      tags: ["galaxy"]
+    - name: ensure roles folder is gitignored
+      lineinfile:
+        dest:   .gitignore
+        regexp: '^galaxy_roles$'
+        line:   'galaxy_roles'
+        state:  present
+      tags: ["galaxy"]
+    - name: install pip packages
+      pip:
+        name: "{{ item }}"
+      with_items:
+        - passlib
+      tags: ["pip"]
+  # roles:
+  #   - role: itiut.pip-packages
+  #     pip_packages_install:
+  #       - pep8
+  #     pip_packages_default_install_state: latest
+  #     pip_packages_executable: pip
+  #     tags: ['pip']
