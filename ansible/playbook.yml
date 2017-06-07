@@ -11,7 +11,6 @@
         - users
     - role: hswong3i.jira
       tags: ["jira"]
-# configure users
 
 - hosts: all
   gather_facts: yes
@@ -29,10 +28,9 @@
   tags:
     - jenkins
 
-# - hosts: jira_servers
-#   gather_facts: yes
-
-#   roles:
-#     - geerlingguy.jenkins
-#   tags:
-#     - jira
+- hosts: jira_servers
+  gather_facts: yes
+  roles:
+    - hswong3i.jira
+  tags:
+    - jira
