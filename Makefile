@@ -29,7 +29,7 @@ help:           ## Show this help.
 #
 # Init Related
 #
-.PHONY: init
+.PHONY: init repo_install repo_init gpg-recrypt remote push
 
 init: ## Prepare the environment for vagrant
 	source ./scripts/common.sh && setup_repo
@@ -45,6 +45,11 @@ repo_init: ## initialize repo
 
 gpg-recrypt:
 	./scripts/re-crypt.sh
+
+remote: ## add remotes
+	git remote | grep origin && echo "exists!" || git remote add origin git@github.com:developerinlondon/vagrant-multi.git
+	git remote | grep bb     && echo "exists!" || git remote add bb git@bitbucket.org:sdsgmbh/vagrant-ansible.git
+	git remote | grep gl     && echo "exists!" || git remote add gl git@gitlab.com:sdsgmbh/vagrant-ansible.git
 
 push: ## git push origin master; git push bb master; git push gl master;
 	git push origin master; git push bb master; git push gl master;
