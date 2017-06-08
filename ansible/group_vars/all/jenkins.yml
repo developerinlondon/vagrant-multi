@@ -1,2 +1,22 @@
 ---
 jenkins_version: 2.60
+jenkins_plugins:
+  - ant
+  - antisamy-markup-formatter
+  - build-timeout
+  - cloudbees-folder
+  - credentials-binding
+  - email-ext
+  - git
+  - gradle
+  - ldap
+  - mailer
+  - matrix-auth
+  - pam-auth
+  - pipeline-stage-view
+  - ssh-slaves
+  - subversion
+  - timestamper
+  - workflow-aggregator
+  - github-organization-folder
+  - ws-cleanup
